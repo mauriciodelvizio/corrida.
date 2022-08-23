@@ -265,12 +265,12 @@ class Game {
   }
 
   handlePlayerControls() {
-    if (keyIsDown(UP_ARROW) && player.life > 0) {
+    if (player.fuel > 0 && keyIsDown(UP_ARROW) && player.life > 0) {
       this.playerMoving = true;
       player.positionY += 10;
+      player.fuel -= 0.3;
       player.update();
     }
-
     if (keyIsDown(LEFT_ARROW) && player.positionX > width / 3 - 50 && player.life > 0) {
       this.leftKeyActive = true;
       player.positionX -= 5;
@@ -292,12 +292,6 @@ class Game {
       //o evento
       collected.remove();
     });
-
-    // reduzindo o combustível do carro
-    if (player.fuel > 0 && this.playerMoving) {
-      player.fuel -= 0.3;
-    }
-
     if (player.fuel <= 0) {
       gameState = 2;
       this.gameOver();
